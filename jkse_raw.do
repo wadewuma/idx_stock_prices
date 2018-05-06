@@ -1,6 +1,6 @@
 ********************************************************************************
 *
-*		MAKE INVESMENT DECISIONS IN STOCK MARKET USING YAHOO! FINANCE DATA
+*	MAKE INVESMENT DECISIONS IN STOCK MARKET USING YAHOO! FINANCE DATA
 *
 *	Purpose		: Collect all publicly listed companies' stock prices from Y!F
 *	Author		: lukman.edwindra@gmail.com
@@ -8,11 +8,10 @@
 *
 ********************************************************************************
 
-* first step
 clear all
 set more off
 
-gl jkse "C:/Users/lukman/OneDrive/5_Finance/2_Yahoo/jkse/"
+gl jkse "" // your folder here
 
 * load all publicly listed companies data
 local csv: dir "$jkse/csv" files "*.JK.csv"
@@ -71,7 +70,7 @@ ren jkse_v7 jkse_volume
 tempfile jkse
 saveold `jkse', replace
 
-* save data
+* format date
 merge 1:m date using `raw', nogen
 g date_num = date(date, "YMD")
 	format date_num %td
@@ -83,5 +82,6 @@ drop if code == ""
 			replace `l' = round(`l')
 			replace jkse_`l' = round(jkse_`l')
 		}
+* save data	
 saveold $jkse/dta/jkse_raw, replace
 export delimited $jkse/jkse_raw, replace
