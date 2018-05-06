@@ -1,21 +1,13 @@
 ********************************************************************************
 *									
 *	
-*	Data source		: Yahoo! Finance
-*	Author			: lukman.edwindra@gmail.com
+*	Data source	: Yahoo! Finance
+*	Author		: lukman.edwindra@gmail.com
 *	Date updated	: May 3, 2018
-*	Purpose			: Create a model that requires me no financial statements 
-*					  and no news to hedge me against market meltdown, although 
-*					  it seems boring when market is in a good condition
 *
 ********************************************************************************
 clear
 set more off
-
-// log close _all
-// log using $jkse/jkse_log.log, replace
-
-// do $jkse/do/jkse_raw
 
 forv n = 7(-1)2{
 		do $jkse/do/jkse_analyzed_201`n'
@@ -53,6 +45,3 @@ g rmse_diff = (rmse2017 - rmse_train), a(rmse2017)
 	drop if rmse_diff > 0
 		qui sum rmse_diff, det
 			keep if rmse_diff <= r(p10)
-			
-// log close
-// exit
