@@ -1,19 +1,16 @@
 ********************************************************************************
 *									
 *	
-*	Data source		: Yahoo! Finance
-*	Author			: lukman.edwindra@gmail.com
+*	Data source	: Yahoo! Finance
+*	Author		: lukman.edwindra@gmail.com
 *	Date updated	: May 3, 2018
-*	Purpose			: Create a model that requires me no financial statements 
-*					  and no news to hedge me against market meltdown, although 
-*					  it seems boring when market is in a good condition
 *
 *********************************************************************************
 clear 
 set more off
 
 * set path
-gl jkse "C:/Users/lukman/OneDrive/5_Finance/2_Yahoo/jkse/"
+gl jkse "" // your folder here
 
 * load jkse data
 use $jkse/3_dta/jkse_raw, clear
@@ -24,12 +21,16 @@ use $jkse/3_dta/jkse_raw, clear
 			drop date_2 date_dup
 				sort code date_num
 
-* i don't wanna buy expensive companies
+* drop stocks which traded above 5k in last trading day in the data set
+* this is merely my preference, you can just keep it
+
+/*
 bys code: g latest_price_abv5k_a = (adjclose >= 5000) if _n == _N
 bys code: egen latest_price_abv5k_b = sum(latest_price_abv5k_a)
 	drop if latest_price_abv5k_b == 1
 		drop latest_*
-				
+*/
+
 * create years+months
 replace mm = "0"+mm if strlen(mm) < 2
 	g yymm = yy+"/"+mm, a(mm)
