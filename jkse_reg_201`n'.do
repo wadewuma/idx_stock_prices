@@ -1,19 +1,16 @@
 ********************************************************************************
 *									
 *	
-*	Data source		: Yahoo! Finance
-*	Author			: lukman.edwindra@gmail.com
+*	Data source	" Yahoo! Finance
+*	Author		: lukman.edwindra@gmail.com
 *	Date updated	: May 3, 2018
-*	Purpose			: Create a model that requires me no financial statements 
-*					  and no news to hedge me against market meltdown, although 
-*					  it seems boring when market is in a good condition
 *
 *********************************************************************************
 clear 
 set more off
 
 * set path
-gl jkse "C:/Users/lukman/OneDrive/5_Finance/2_Yahoo/jkse/"
+gl jkse "" // your working directory
 
 * load jkse data
 use $jkse/dta/jkse_reg_raw, clear
