@@ -31,17 +31,16 @@ reshape wide beta rmse, i(code) j(yy) string
 				drop if rmse`n' == .
 			}
 
-gl rmse_train rmse2012 rmse2013 rmse2014 rmse2015 rmse2016
-egen rmse_train = rowmean($rmse_train)
+loal rmse_train rmse2012 rmse2013 rmse2014 rmse2015 rmse2016
+egen rmse_train = rowmean(`rmse_train')
 	order rmse2017, a(rmse_train)
 
-gl beta_train beta2012 beta2013 beta2014 beta2015 beta2016
-egen beta_train = rowmean($beta_train)
+loal beta_train beta2012 beta2013 beta2014 beta2015 beta2016
+egen beta_train = rowmean(`beta_train')
 	order beta2017, a(beta_train)
-
-drop $rmse_train $beta_train
 
 g rmse_diff = (rmse2017 - rmse_train), a(rmse2017)
 	drop if rmse_diff > 0
-		qui sum rmse_diff, det
-			keep if rmse_diff <= r(p10)
+
+qui sum beta2017, det
+	keep if beta2017 <= r(p5) | beta2017 >= r(p95)
