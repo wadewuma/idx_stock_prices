@@ -31,11 +31,11 @@ reshape wide beta rmse, i(code) j(yy) string
 				drop if rmse`n' == .
 			}
 
-loal rmse_train rmse2012 rmse2013 rmse2014 rmse2015 rmse2016
+local rmse_train rmse2012 rmse2013 rmse2014 rmse2015 rmse2016
 egen rmse_train = rowmean(`rmse_train')
 	order rmse2017, a(rmse_train)
 
-loal beta_train beta2012 beta2013 beta2014 beta2015 beta2016
+local beta_train beta2012 beta2013 beta2014 beta2015 beta2016
 egen beta_train = rowmean(`beta_train')
 	order beta2017, a(beta_train)
 
