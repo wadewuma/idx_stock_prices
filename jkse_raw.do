@@ -1,10 +1,8 @@
 ********************************************************************************
 *
-*	MAKE INVESMENT DECISIONS IN STOCK MARKET USING YAHOO! FINANCE DATA
-*
-*	Purpose		: Collect all publicly listed companies' stock prices from Y!F
-*	Author		: lukman.edwindra@gmail.com
-*	Time frame	: Jan 1, 2008 - Apr 24, 2018
+*	purpose		: collect all publicly listed companies' stock prices from Y!F
+*	author		: lukman.edwindra@gmail.com
+*	time frame	: jan 1, 2012 - may 4, 2018
 *
 ********************************************************************************
 
