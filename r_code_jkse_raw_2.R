@@ -2,7 +2,7 @@
 rm(list=ls())
 
 # set path
-setwd("C:/Users/lukman/OneDrive/5_Finance/2_Yahoo/jkse/5_useR")
+setwd("your directory")
 
 # load data
 df = read.csv("df.raw.csv")[c('Date','Adj.Close','code')]
