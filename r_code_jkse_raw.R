@@ -1,7 +1,7 @@
 #clear all 
 rm(list=ls())
 
-setwd("C:/Users/lukman/OneDrive/5_Finance/2_Yahoo/jkse/1_csv")
+setwd("directory for csv files")
 
 df.1= read.csv("AALI.JK.csv", sep = ",")[c('Date','Adj.Close')]
 df.2= read.csv("ABBA.JK.csv", sep = ",")[c('Date','Adj.Close')]
@@ -1213,7 +1213,7 @@ df.603= data.frame(df.603,code="zinc")
 
 
 
-setwd("C:/Users/lukman/OneDrive/5_Finance/2_Yahoo/jkse/5_useR")
+setwd("directory for new csv files")
 write.csv(df.1,"df.1.csv")
 write.csv(df.2,"df.2.csv")
 write.csv(df.3,"df.3.csv")
