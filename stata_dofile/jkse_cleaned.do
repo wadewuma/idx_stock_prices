@@ -1,8 +1,8 @@
 ********************************************************************************
 *	
-*			PREDICT STOCK MARKET RETURNS USING YAHOO! FINANCE DATA
-*			  (lukman.edwindra@gmail.com // github.com/ledwindra)
-*								MAY 24, 2018					
+*	PREDICT STOCK MARKET RETURNS USING YAHOO! FINANCE DATA
+*	(lukman.edwindra@gmail.com // github.com/ledwindra)
+*	MAY 24, 2018					
 *
 ********************************************************************************
 
@@ -22,7 +22,7 @@ sort code date_num
 
 *==============================================================================*
 *
-*						STEP 1: CREATE TIME PERIOD
+*	STEP 1: CREATE TIME PERIOD
 *
 *==============================================================================*
 
@@ -40,7 +40,7 @@ forv m = 3(3)12{
 			
 *==============================================================================*
 *
-*					STEP 2: GENERATE DAILY STOCK RETURNS
+*	STEP 2: GENERATE DAILY STOCK RETURNS
 *
 *==============================================================================*
 
