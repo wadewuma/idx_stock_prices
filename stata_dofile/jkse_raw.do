@@ -1,8 +1,8 @@
 ********************************************************************************
 *	
-*			PREDICT STOCK MARKET RETURNS USING YAHOO! FINANCE DATA
-*			  (lukman.edwindra@gmail.com // github.com/ledwindra)
-*								MAY 24, 2018					
+*		PREDICT STOCK MARKET RETURNS USING YAHOO! FINANCE DATA
+*		  (lukman.edwindra@gmail.com // github.com/ledwindra)
+*				MAY 24, 2018					
 *
 ********************************************************************************
 
@@ -13,7 +13,7 @@ gl path "~:/your/path/here"
 
 *==============================================================================*
 *
-*				STEP 1: LOAD ALL CSV DATA AND CREATE A SINGLE DATA SET
+*	STEP 1: LOAD ALL CSV DATA AND CREATE A SINGLE DATA SET
 *
 *==============================================================================*
 
@@ -30,7 +30,7 @@ foreach file of local csv{
 	
 *==============================================================================*
 *
-*						STEP 2: CLEAN DATA SET
+*	STEP 2: CLEAN DATA SET
 *
 *==============================================================================*
 
@@ -59,7 +59,7 @@ saveold `raw', replace
 
 *==============================================================================*
 *
-*							STEP 3: LOAD IHSG DATA
+*	STEP 3: LOAD IHSG DATA
 *
 *==============================================================================*
 
@@ -85,7 +85,7 @@ saveold `jkse', replace
 
 *==============================================================================*
 *
-*					STEP 4: MERGE ALL FIRMS DATA WITH IHSG
+*	STEP 4: MERGE ALL FIRMS DATA WITH IHSG
 *
 *==============================================================================*
 
