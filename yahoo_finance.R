@@ -1,14 +1,26 @@
+#########################################################################################################################################
+#
+# create financial model based on yahoo! finance stock prices of companies listed in indonesia stock exchange
+# the following code uses data set from file titled "dataset_r"
+#
+#########################################################################################################################################
+
 #clear all
 rm(list=ls())
 
-library(zoo)
+# load package
+# in case you haven't installed them yet, run following code:
+# install.packages("readstata13")
+# install.packages("tidyverse")
+# and so on...
 library(tidyverse)
 library(plyr)
 library(dplyr)
 library(tidyr)
 library(broom)
 
-setwd("C:/Users/lukman/OneDrive/5_Finance/2_Yahoo/jkse/1_csv")
+# set path
+setwd("~:/your/path/here")
 
 # create a list of file names
 data.files = list.files(pattern = "*.csv")
