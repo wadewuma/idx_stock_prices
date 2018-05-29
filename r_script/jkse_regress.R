@@ -13,7 +13,6 @@ rm(list=ls())
 # install.packages("readstata13")
 # install.packages("tidyverse")
 # and so on...
-library(readstata13)
 library(tidyverse)
 library(plyr)
 library(dplyr)
@@ -24,10 +23,7 @@ library(broom)
 setwd("~:/your/path/here")
 
 # load data
-df <- read.dta13("jkse_cleaned.dta")
-
-# select necessary variabls
-df <- subset(df, select = c(date, yy, qq, code, adjclose))
+df <- read.csv("jkse_cleaned.csv")
 
  # create lag = t-1
 df <- transform(df, adjclose = na.locf(adjclose))
