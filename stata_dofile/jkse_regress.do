@@ -17,6 +17,7 @@ set more off
 
 * SET PATH
 gl path "~:/your/path/here"
+import delimited $path/jkse_cleaned, clear
 
 * CREATE A BALANCED DATA SET FOR EACH YEAR 2013, 2014, ..., 2017
 * SAVE DATA SET BEFORE DOING REGRESSION
