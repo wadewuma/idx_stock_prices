@@ -10,7 +10,6 @@ clear
 set more off
 
 gl path "~:/your/path/here"
-
 use $path/jkse_raw, clear
 	
 drop *open *high *low jkse_close close *volume // keep necessary vars
@@ -64,4 +63,4 @@ foreach v of varlist *adjclose{
 		g `v'_return_L1 = `v'_return[_n-1], a(`v'_return)
 	}
 
-saveold $path/jkse_cleaned, replace
+export delimited $path/jkse_cleaned, replace
