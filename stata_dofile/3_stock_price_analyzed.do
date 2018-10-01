@@ -39,8 +39,7 @@ quietly forval year = 2008/2018{
 				replace returns_avg = r(mean) if trading_day_`year' == `n' & returns_avg ==.
 				replace returns_sd = r(sd) if trading_day_`year' == `n' & returns_sd == .
 				summarize volume if trading_day_`year' == `n'
-				replace volume_avg = r(mean) if trading_day_`year' == `n' & volume_avg == .
-					
+				replace volume_avg = r(mean) if trading_day_`year' == `n' & volume_avg == .	
 			}
 	}
 	
