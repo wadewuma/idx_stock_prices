@@ -5,11 +5,10 @@
 *		PERIOD 2008/01/01 - PRESENT (DAILY)
 *
 ********************************************************************************
-cls
 clear
 
 * 1. SET PATH
-gl stock "C:/Users/lukman/OneDrive/5_Finance/idx/stock_price/"
+global stock "C:/stock/"
 
 * 2. LOAD DATA
 load daily stock price data
@@ -27,6 +26,6 @@ local csv: dir "$stock/1_csv/" files "*JK.csv"
 
 * 3. SAVE DATA
 compress
-saveold $stock/3_dta/1_stock_price_raw, replace
+saveold $stock/1_stock_price_raw, replace
 clear
 exit
