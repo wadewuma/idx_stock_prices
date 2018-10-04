@@ -1,6 +1,6 @@
 # Analyze Indonesia's Stock Price Data from Yahoo! Finance
 
-This repository aims to obtain all stock price data of publicly listed companies in Indonesia from Yahoo! Finance (free).
+This repository aims to automatically obtain all stock price data of publicly listed companies in Indonesia from Yahoo! Finance (free).
 Following are steps to use this repository:
   
   1. For R scripts, run through "r_scripts" folder;
