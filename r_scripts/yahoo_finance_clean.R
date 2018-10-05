@@ -1,6 +1,3 @@
-# rm(list = ls()) # remove objects from previous environment (optional, but most of the times 
-# cat("\014")
-
 # install.package(c('ggplot2', 'dplyr', 'tidyr'))
 library(ggplot2)
 library(dplyr)
@@ -73,6 +70,11 @@ colnames(df_unique)[2] <- 'returns_abv_avg_sum'
 colnames(df_unique)[3] <- 'rank'
 head(df_unique)
 
+################################################################################
+#
+# STEP 2: CREATE GRAPHS
+#
+################################################################################
 # plot a bar chart to see the top 10 companies which have the highest numbers of daily returns above average
 # create a ggplot object
 bar_plot <- ggplot(data = df_unique, aes(x = reorder(ticker, returns_abv_avg_sum), 
