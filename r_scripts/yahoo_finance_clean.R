@@ -23,7 +23,7 @@ df <- data.frame(ticker, date, adjclose)
 count <- df %>%
   add_count(df$ticker)
 df$count <- count[,5]
-df <- subset(df, df$count == 22)
+df <- subset(df, df$count == max(df$count)) 
 df <- df[,1:3]
 
 # generate lag variable (lag = 1 day)
