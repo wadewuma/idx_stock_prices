@@ -663,7 +663,7 @@ ticker <- c('AALI.JK',
 )
 
 # set time period
-# n <- put any number 
+n <- as.numeric(as.Date(Sys.Date())-as.Date("2018-01-01")) # year-to-date
 first_date <- Sys.Date()-n # current date minus total days in n
 last_date <- Sys.Date() # current date
 
