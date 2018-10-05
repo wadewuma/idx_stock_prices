@@ -3,71 +3,72 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
-# set directory
-setwd('C:\\your\\path\\here')
-
-# load data from previous R script 
 df <- read.csv('idx_yahoo_finance.csv')
 
 ################################################################################
 #
-# STEP 1: DAILY RETURNS
+# STEP 1: DAILY RETURNS AND TRADING VOLUME
 #
 ################################################################################
 ticker <- substr(df$ticker,1,4)
 date <- df$ref.date
 adjclose <- df$price.adjusted
-df <- data.frame(ticker, date, adjclose)
+volume <- df$volume
+df <- data.frame(ticker, date, adjclose, volume)
 
 # make a balanced dataset
 count <- df %>%
   add_count(df$ticker)
-df$count <- count[,5]
-df <- subset(df, df$count == max(df$count)) 
-df <- df[,1:3]
+df['obs'] <- count$n
+df <- subset(df, df$obs == max(df$obs))
 
 # generate lag variable (lag = 1 day)
 lag <- df %>%
   group_by(ticker) %>%
   mutate(lag(adjclose))
-adjclose_lag <- lag[,4]
-df <- cbind(df, adjclose_lag)
+df['adjclose_lag'] <- lag$`lag(adjclose)`
 
 # generate daily log returns
-logreturns <- round(log(df$adjclose/df$`lag(adjclose)`), digits = 4)
-df <- cbind(df[1:2], logreturns)
-
-# generate average log returns by ticker 
-logavg_by_ticker <- df %>%
-  group_by(ticker) %>%
-  summarize(mean(logreturns, na.rm = TRUE))
+df['logreturns'] <- round(log(df$adjclose/df$adjclose_lag), digits = 4)
 
 # generate average log returns by date
-logavg_by_date <- df %>%
+bydate <- df %>%
   group_by(date) %>%
-  summarize(mean(logreturns, na.rm = TRUE))
-df <- cbind(df, logavg_by_date[,2])
-colnames(df)[4] <- 'logavg_by_date'
+  summarize(logretavg = mean(logreturns, na.rm = TRUE),
+            volumeavg = mean(volume, na.rm = TRUE))
+df['logreturns_avg'] <- bydate$logretavg
+df['volumeavg'] <- bydate$volumeavg
 
-# create a dummy where a value of 1 is assigned if log returns of company C in date D is above average log returns in D
-df['returns_abv_avg'] <- as.numeric(df$logreturns > df$logavg_by_date)
+# create dummies where a value of 1 is assigned if:
+# 1. log returns of company C in date D
+# 2. daily trading volume of company C in date D
+# are beyond average among all companies
+df['returns_abv_avg'] <- as.numeric(df$logreturns > df$logreturns_avg)
+df['volume_abv_avg'] <- as.numeric(df$volume > df$volumeavg)
 
-# sum total days where company C has above average log returns in date D
-returns_abv_avg_sum <- df %>%
+# sum total days where company C has:
+# 1. above average log returns
+# 2. above average trading volume
+# in date D
+abv_avg_sum <- df %>%
   group_by(ticker) %>%
-  summarize(sum(returns_abv_avg == 1, na.rm = TRUE))
-df <- merge(df, returns_abv_avg_sum, by = 'ticker')
-colnames(df)[6] <- 'returns_abv_avg_sum'
+  summarize(logretabvavgsum = sum(returns_abv_avg == 1, na.rm = TRUE),
+            volabvavgsum = sum(volume_abv_avg == 1, na.rm = TRUE))
+df <- merge(df, abv_avg_sum, by = 'ticker')
+colnames(df)[12] <- 'returns_abv_avg_sum'
+colnames(df)[13] <- 'volume_abv_avg_sum'
 
-# rank companies which have the highest numbers of daily returns above average
+# rank companies which have the highest numbers of daily returns and trading volume 
 # remove duplicates
-df_unique <- data.frame(df$ticker, df$returns_abv_avg_sum)
-df_unique <- unique(df_unique)
-df_unique['rank'] <- rank(-df_unique$df.returns_abv_avg_sum, ties.method = 'first')
-df_unique <- subset(df_unique, rank <= 10)
+df_unique <- unique(data.frame(df$ticker, df$returns_abv_avg_sum, df$volume_abv_avg_sum))
+df_unique['returns_rank'] <- rank(-df_unique$df.returns_abv_avg_sum, ties.method = 'first')
+df_unique['volume_rank'] <- rank(-df_unique$df.volume_abv_avg_sum, ties.method = 'first')
+
 colnames(df_unique)[1] <- 'ticker'
 colnames(df_unique)[2] <- 'returns_abv_avg_sum'
-colnames(df_unique)[3] <- 'rank'
+colnames(df_unique)[3] <- 'volume_abv_avg_sum'
+colnames(df_unique)[4] <- 'returns_rank'
+colnames(df_unique)[5] <- 'volume_rank'
 head(df_unique)
 
 ################################################################################
@@ -75,15 +76,28 @@ head(df_unique)
 # STEP 2: CREATE GRAPHS
 #
 ################################################################################
-# plot a bar chart to see the top 10 companies which have the highest numbers of daily returns above average
-# create a ggplot object
-bar_plot <- ggplot(data = df_unique, aes(x = reorder(ticker, returns_abv_avg_sum), 
-                             y = returns_abv_avg_sum))
-# create a bar plot
-bar_plot+
+# companies with the highest numbers of daily returns above average
+df_returns_plot <- subset(df_unique, returns_rank <= 10)
+returns_plot <- ggplot(data = df_returns_plot, aes(x = reorder(ticker, returns_abv_avg_sum), 
+                                         y = returns_abv_avg_sum))
+returns_plot+
   geom_bar(stat = 'identity')+
   xlab("Company Names")+
   ylab("Sum of Above Average Returns")+
   coord_flip()+ # make it horizontal
   theme_bw()+ # change theme
   scale_fill_grey()
+ggsave('Sum of Above Average Returns.png', width = 7.5, height = 5)
+
+# most liquid companies measured by daily trading volume
+df_volume_plot <- subset(df_unique, volume_rank <= 10)
+volume_plot <- ggplot(data = df_volume_plot, aes(x = reorder(ticker, volume_abv_avg_sum), 
+                                            y = volume_abv_avg_sum))
+volume_plot+
+  geom_bar(stat = 'identity')+
+  xlab("Company Names")+
+  ylab("Most Liquid Companies (by Daily Trading Volume)")+
+  coord_flip()+ # make it horizontal
+  theme_bw()+ # change theme
+  scale_fill_grey()
+ggsave('Most Liquid Companies.png', width = 7.5, height = 5)
