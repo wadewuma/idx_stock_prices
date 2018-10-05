@@ -1,5 +1,6 @@
 # install.package(c('ggplot2', 'dplyr', 'tidyr'))
 library(ggplot2)
+library(plotly)
 library(dplyr)
 library(tidyr)
 
@@ -7,7 +8,7 @@ df <- read.csv('idx_yahoo_finance.csv')
 
 ################################################################################
 #
-# STEP 1: DAILY RETURNS AND TRADING VOLUME
+# STEP 1: SET UP VARIABLES
 #
 ################################################################################
 ticker <- substr(df$ticker,1,4)
@@ -71,6 +72,16 @@ colnames(df_unique)[4] <- 'returns_rank'
 colnames(df_unique)[5] <- 'volume_rank'
 head(df_unique)
 
+# cumulative returns
+head(df)
+df_cumul <- select(df, ticker, date, logreturns)
+head(df_cumul)
+logreturns_cumul <- df_cumul %>%
+  group_by(ticker) %>%
+  summarize(logretcumul = sum(logreturns, na.rm = TRUE))
+df_cumul <- logreturns_cumul
+df_cumul['cumul_rank'] <- rank(-df_cumul$logretcumul, ties.method = 'first')
+
 ################################################################################
 #
 # STEP 2: CREATE GRAPHS
@@ -101,3 +112,30 @@ volume_plot+
   theme_bw()+ # change theme
   scale_fill_grey()
 ggsave('Most Liquid Companies.png', width = 7.5, height = 5)
+
+# top and bottom 10 profitable companies by cumulative returns
+df_cumul_plot <- subset(df_cumul,
+                        cumul_rank <= (min(df_cumul$cumul_rank)+9) |
+                          cumul_rank >= (max(df_cumul$cumul_rank)-9))
+
+cumul_plot <- ggplot(data = df_cumul_plot, aes(x = reorder(ticker, logretcumul), 
+                                                 y = logretcumul))
+cumul_plot+
+  geom_bar(stat = 'identity')+
+  xlab("Company Names")+
+  ylab("Cumulative Returns")+
+  coord_flip()+ # make it horizontal
+  theme_bw()+ # change theme
+  scale_fill_grey()+
+  scale_y_continuous(labels = c('-200%', '-100%', '0%', '100%', '200%'))
+ggsave('Cumulative Returns.png', width = 7.5, height = 5)
+
+# average daily returns density plot
+density_plot <- ggplot(data = bydate, aes(x = logretavg))
+p <- density_plot+
+  stat_density(na.rm = TRUE, geom = 'line', color = 'blue')+
+  xlab("Distributions of Daily Returns")+
+  theme_bw()+
+  scale_x_continuous(labels = c('-3%', '2%', '1%', '0%', '1%'))
+ggplotly(p)
+ggsave('Distributions of Daily Returns.png', width = 7.5, height = 5)
