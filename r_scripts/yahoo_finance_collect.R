@@ -1,18 +1,19 @@
 setwd('C:\\your\\path\\here')
-
-install.packages(c('downloader', 'readxl', 'bitops', 'RCurl'))
-library(downloader)
-library(readxl)
-library(bitops)
-library(RCurl)
+install.packages(c('BatchGetSymbols', 'rvest', 'xml2'))
+library(BatchGetSymbols)
+library(rvest)
+library(xml2)
 
 company_list <- read.csv('listed_companies.csv', header = FALSE)
 head(company_list)
 file_name <- as.character(company_list$V1)
 head(file_name)
-idx <- as.character(company_list$V3)
-for (i in 1:length(idx)){
-  if(url.exists(idx[i]) == TRUE){
-    download(idx[i], file_name[i],mode='wb')
-  }
-}
+
+n <- as.numeric(as.Date(Sys.Date())-as.Date("2018-01-01"))
+first_date <- Sys.Date()-n
+last_date <- Sys.Date()
+df <- BatchGetSymbols(tickers = file_name,
+                      first.date = first_date,
+                      last.date = last_date)
+df = data.frame(df$df.tickers)
+write.csv(df, file = 'idx_yahoo_finance.csv' ,row.names = FALSE)
