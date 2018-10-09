@@ -7,7 +7,7 @@ library(plotly)
 library(dplyr)
 library(tidyr)
 
-df <- read.csv('idx_yahoo_finance.csv')
+df <- read.csv('idx_stock_prices2.csv')
 
 ################################################################################
 #
