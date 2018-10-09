@@ -16,4 +16,4 @@ df <- BatchGetSymbols(tickers = file_name,
                       first.date = first_date,
                       last.date = last_date)
 df = data.frame(df$df.tickers)
-write.csv(df, file = 'idx_yahoo_finance.csv' ,row.names = FALSE)
+write.csv(df, file = 'idx_stock_prices.csv' ,row.names = FALSE)
