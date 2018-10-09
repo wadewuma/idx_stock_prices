@@ -19,13 +19,13 @@ library(tidyr)
 
 ### Download Stock Price Data
 We can obtain daily financial data through Yahoo! Finance for free. In fact, the dataset is already in a table format so the cleaning
-process should be minimal. To automate the process, run 'yahoo_finance_collect.R'. Yahoo! Finance only provides us the ticker code,
+process should be minimal. To automate the process, run 'idx_stock_prices.R'. Yahoo! Finance only provides us the ticker code,
 stock prices (open, high, low, close, and adjusted close), and trading volume. To analyze the data, we may want to generate the daily
-returns for each company by differencing the stock prices. You can do that by running 'yahoo_finance_clean.R' and proceed to the analysis. 
+returns for each company by differencing the stock prices. You can do that by running 'idx_stock_prices2.R' and proceed to the analysis. 
 
 ### Create Graphs
 Before proceeding into the analysis, you may want to explore the data by creating visualizations. I provide several examples below,
-which you can do that by running 'yahoo_finance_clean_visualize.R'. You may want to tweak to create more creative graphs.
+which you can do that by running 'idx_stock_prices2.R'. You may want to tweak to create more creative graphs.
 
 ### Graph 1
 This graph shows us the daily distributions of log returns for each company since January 1, 2018 until present.
