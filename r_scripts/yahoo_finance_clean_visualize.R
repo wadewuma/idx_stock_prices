@@ -81,6 +81,7 @@ logreturns_cumul <- df_cumul %>%
   summarize(logretcumul = sum(logreturns, na.rm = TRUE))
 df_cumul <- logreturns_cumul
 df_cumul['cumul_rank'] <- rank(-df_cumul$logretcumul, ties.method = 'first')
+write.csv(df_cumul, 'idx_cumulative_returns.csv', row.names = FALSE)
 
 ################################################################################
 #
