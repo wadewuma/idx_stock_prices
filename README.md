@@ -29,15 +29,19 @@ which you can do that by running 'idx_stock_prices2.R'. You may want to tweak to
 
 ### Graph 1
 This graph shows us the daily distributions of log returns for each company since January 1, 2018 until present.
-![Distributions%20of%20Daily%20Returns](https://github.com/ledwindra/idx_stock_prices/blob/master/r_scripts/Distributions%20of%20Daily%20Returns.png)
+![Distributions%20of%20Daily%20Returns](https://github.com/ledwindra/idx_stock_prices/blob/master/Distributions%20of%20Daily%20Returns.png)
 
 ### Graph 2
 This graph shows us companies that generate the highest numbers of daily returns.
-![Sum%20of%20Above%20Average%20Returns](https://github.com/ledwindra/idx_stock_prices/blob/master/r_scripts/Sum%20of%20Above%20Average%20Returns.png)
+![Sum%20of%20Above%20Average%20Returns](https://github.com/ledwindra/idx_stock_prices/blob/master/Sum%20of%20Above%20Average%20Returns.png)
 
 ### Graph 3
 This graph shows us companies that have the highest and lowest cumulative daily log returns since January 1, 2018 until present.
-![Cumulative%20Returns](https://github.com/ledwindra/idx_stock_prices/blob/master/r_scripts/Cumulative%20Returns.png)
+![Cumulative%20Returns](https://github.com/ledwindra/idx_stock_prices/blob/master/Cumulative%20Returns.png)
+
+### Graph 4
+This graph shows us the most liquid companies by summing daily trading volume that are above average since January 1, 2018 until present.
+![Most%20Liquid%20Companies](https://github.com/ledwindra/idx_stock_prices/blob/master/Most%20Liquid%20Companies.png)
 
 ### Conclusion
 Individual investor may not be able to subscribe financial terminals. Yahoo! Finance provide us free dataset which I think suffices for
