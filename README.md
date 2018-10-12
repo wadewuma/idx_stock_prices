@@ -1,4 +1,4 @@
-## Analyzing Indonesian Publicly Listed Companies Using Yahoo! Finance Dataset in R
+## Stock Prices of Indonesian Public Companies through Yahoo! Finance
 
 ### Introduction
 This repository aims to automate the process of collecting financial data through Yahoo! Finance in R. 
@@ -43,4 +43,4 @@ This graph shows us companies that have the highest and lowest cumulative daily 
 Individual investor may not be able to subscribe financial terminals. Yahoo! Finance provide us free dataset which I think suffices for
 technical analysis. In fact, it can be done using free programming software such as R. I believe it can also be done using other free
 software such as Python. Econometric method such as time series which may be useful to make investment decisions is beyond the scope
-of this repository. Hence I do not provide any analysis nor investment advice here. Enjoy!
+of this repository. Hence I do not provide any investment advice here. Enjoy!
