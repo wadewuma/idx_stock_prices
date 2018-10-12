@@ -3,27 +3,13 @@
 ### Introduction
 This repository aims to automate the process of collecting financial data through Yahoo! Finance in R. 
 
-### Install Packages
-First of all, we need to have R installed. Then we need to install packages below. Just remove the hashtag if you want to install them.
-It will ignore the line code because probably you have already done it.
-```
-# install.packages(c('BatchGetSymbols', 'rvest' , 'xml2', 'ggplot2', 'plotly', 'dplyr', 'tidyr'))
-library(BatchGetSymbols)
-library(rvest)
-library(xml2)
-library(ggplot2)
-library(plotly)
-library(dplyr)
-library(tidyr)
-```
-
 ### Download Stock Price Data
 We can obtain daily financial data through Yahoo! Finance for free. In fact, the dataset is already in a table format so the cleaning
 process should be minimal. To automate the process, run 'idx_stock_prices.R'. Yahoo! Finance only provides us the ticker code,
 stock prices (open, high, low, close, and adjusted close), and trading volume. To analyze the data, we may want to generate the daily
 returns for each company by differencing the stock prices. You can do that by running 'idx_stock_prices2.R' and proceed to the analysis. 
 
-### Create Graphs
+### Graph Examples
 Before proceeding into the analysis, you may want to explore the data by creating visualizations. I provide several examples below,
 which you can do that by running 'idx_stock_prices2.R'. You may want to tweak to create more creative graphs.
 
