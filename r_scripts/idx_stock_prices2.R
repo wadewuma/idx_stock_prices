@@ -1,6 +1,11 @@
-rm(list = ls())
-cat("\014")
-setwd('C:\\Users\\lukman\\OneDrive\\5_Finance\\idx\\stock_price\\r')
+# setwd('your\\path\\here')
+
+if(!require(tidyverse))
+  install.packages('tidyverse')
+if(!require(ggplot2))
+  install.packages('ggplot2')
+if(!require(plotly))
+  install.packages('plotly')
 
 library(ggplot2)
 library(plotly)
